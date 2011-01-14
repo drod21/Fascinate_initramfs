@@ -331,6 +331,38 @@ on boot
     setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
     setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
 
+# for Sensor HAL
+
+    chown system system /dev/accelerometer
+    chown system system /dev/akm8973_daemon
+    chown system system /dev/akm8973_aot
+#   chown system system /dev/bma020
+#   chown system system /dev/proximity
+        chown system system /dev/light
+    chmod 0777 /dev/accelerometer
+    chmod 0777 /dev/akm8973_daemon
+    chmod 0777 /dev/akm8973_aot
+#   chmod 0777 /dev/bma020
+#   chmod 0777 /dev/proximity
+        chmod 0777 /dev/light
+
+#magnetic sensor yamaha
+    chown compass system /dev/i2c-12
+    chmod 0777 /dev/i2c-12
+    chown compass system /dev/i2c-5
+    chmod 0777 /dev/yamaha_compass
+    chown system system /dev/light
+    chmod 0777 /dev/light
+#   chown system system /dev/bma020
+    chown system system /dev/proximity
+    chmod 0777 /dev/accelerometer
+    chmod 0777 /dev/akm8973_daemon
+    chmod 0777 /dev/akm8973_aot
+#   chmod 0777 /dev/bma020
+   chmod 0777 /dev/proximity
+
+
+
 # Include extra init file
     import /system/etc/init.local.rc
 
@@ -489,3 +521,8 @@ service dumpstate /system/bin/dumpstate -s
     socket dumpstate stream 0660 shell log
     disabled
     oneshot
+
+#magnetic sensor yamaha
+service sensor-daemon /system/bin/sensorserver_yamaha
+user root
+group system
